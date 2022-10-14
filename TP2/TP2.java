@@ -3,8 +3,8 @@ package TP2;
 public class TP2 {
     //write hello wolrd to console
     public static void main(String[] args) {
-        System.out.println(toBinaryString(54));
-        System.out.println(toHexString(54));
+        System.out.println(Integer.toBinaryString(54));
+        System.out.println(Integer.toHexString(54));
 
         double nb = 0.5;
         long doubleAsLong = Double.doubleToLongBits(nb);
@@ -24,84 +24,10 @@ public class TP2 {
         Hanoi(3, 'A', 'C', 'B');
     }
 
-    public static String toBinaryString(int n){
-        String res = "";
-        while(n > 0){
-            res = n%2 + res;
-            n = n/2;
-        }
-        return res;
-    }
-
-    public static String toBinaryString(Byte n){
-        int m = n;
-        String res = "";
-        while(n > 0){
-            res = m%2 + res;
-            m = m/2;
-        }
-        return res;
-    }
-
-    public static String toBinaryString(long n){
-        String res = "";
-        while(n > 0){
-            res = n%2 + res;
-            n = n/2;
-        }
-        return res;
-    }
-
-    public static String toHexString(int n){
-        String res = "";
-        while(n > 0){
-            int r = n%16;
-            if(r < 10){
-                res = r + res;
-            }
-            else{
-                res = (char)(r+55) + res;
-            }
-            n = n/16;
-        }
-        return res;
-    }
-
-    public static String toHexString(Byte m){
-        int n = m;
-        String res = "";
-        while(n > 0){
-            int r = n%16;
-            if(r < 10){
-                res = r + res;
-            }
-            else{
-                res = (char)(r+55) + res;
-            }
-            n = n/16;
-        }
-        return res;
-    }
-
-    public static String toHexString(long n){
-        String res = "";
-        while(n > 0){
-            long r = n%16;
-            if(r < 10){
-                res = r + res;
-            }
-            else{
-                res = (char)(r+55) + res;
-            }
-            n = n/16;
-        }
-        return res;
-    }
-
     public static String toHexString(String n){
         String res = "";
         for(int i = 0; i < n.length(); i++){
-            res += toHexString(n.charAt(i));
+            res += Integer.toHexString(n.charAt(i));
         }
         return res;
     }
@@ -211,7 +137,20 @@ public class TP2 {
         }
     }
 
-    //3.1 A faire, pas compris
+    public static void decimalToHex(int n){
+        String res = "";
+        while(n > 0){
+            int r = n%16;
+            if(r < 10){
+                res = r + res;
+            }
+            else{
+                res = (char)(r+55) + res;
+            }
+            n = n/16;
+        }
+        System.out.println(res);
+    }
 
     public static double piViete(double presition){
         double res = Math.sqrt(2);
