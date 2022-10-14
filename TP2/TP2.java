@@ -22,6 +22,8 @@ public class TP2 {
         System.out.println((operateurFleche(3,2,3)));
 
         Hanoi(3, 'A', 'C', 'B');
+
+        decimalToHex(54);
     }
 
     public static String toHexString(String n){
@@ -149,7 +151,22 @@ public class TP2 {
             }
             n = n/16;
         }
-        System.out.println(res);
+        System.out.println("0x"+res);
+    }
+
+    public static String decimalToHexString(int n){
+        String res = "";
+        while(n > 0){
+            int r = n%16;
+            if(r < 10){
+                res = r + res;
+            }
+            else{
+                res = (char)(r+55) + res;
+            }
+            n = n/16;
+        }
+        return res;
     }
 
     public static double piViete(double presition){
