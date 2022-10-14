@@ -16,6 +16,9 @@ public class TP2 {
 
         //tables();
         tablesTableau();
+
+        System.out.println(piViete(0.001));
+        System.out.println(Math.PI);
     }
 
     public static String toBinaryString(int n){
@@ -204,5 +207,18 @@ public class TP2 {
             System.out.println();
         }
     }
+
+    //3.1 A faire, pas compris
+
+    public static double piViete(double presition){
+        double res = Math.sqrt(2);
+        double div = Math.sqrt(2);
+        while(Math.abs((res*2)-Math.PI)>presition){
+            div = Math.sqrt(2+div);
+            res *= 2/div;
+        }
+        return res*2;
+    }
+
 
 }
