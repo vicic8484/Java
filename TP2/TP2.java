@@ -19,11 +19,11 @@ public class TP2 {
 
         System.out.println(piViete(0.001));
         //System.out.println(Math.PI);
-        System.out.println((operateurFleche(3,2,3)));
+        System.out.println((operateurFleche(2,3,3)));
 
-        Hanoi(3, 'A', 'C', 'B');
+        //Hanoi(3, 'A', 'C', 'B');
 
-        decimalToHex(54);
+        //decimalToHex(54);
     }
 
     public static String toHexString(String n){
@@ -199,7 +199,7 @@ public class TP2 {
         if(k == 1){
             return Math.pow(m,n);
         }
-        else{
+        else if(k == 2){
             if(n == 1){
                 return m;
             }
@@ -210,6 +210,13 @@ public class TP2 {
                 }
                 return res;
             }
+        }
+        else{
+            double res = m;
+            for(int i = 1; i < n; i++){
+                res = operateurFleche(res, k-1, m);
+            }
+            return res;
         }
     }
 }
