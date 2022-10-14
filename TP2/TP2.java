@@ -18,7 +18,10 @@ public class TP2 {
         tablesTableau();
 
         System.out.println(piViete(0.001));
-        System.out.println(Math.PI);
+        //System.out.println(Math.PI);
+        System.out.println((operateurFleche(3,2,3)));
+
+        Hanoi(3, 'A', 'C', 'B');
     }
 
     public static String toBinaryString(int n){
@@ -220,5 +223,41 @@ public class TP2 {
         return res*2;
     }
 
+    public static int HanoiNum(int n){
+        if(n == 1){
+            return 1;
+        }
+        else{
+            return 2*HanoiNum(n-1)+1;
+        }
+    }
 
+    public static void Hanoi(int n, char depart, char inter, char arrivee){
+        if(n == 1){
+            System.out.println("Déplacer le disque "+n+" de "+depart+" vers "+arrivee);
+        }
+        else{
+            Hanoi(n-1,depart,arrivee,inter);
+            System.out.println("Déplacer le disque "+n+" de "+depart+" vers "+arrivee);
+            Hanoi(n-1,inter,depart,arrivee);
+        }
+    }
+
+    public static double operateurFleche(double m, int k, double n){
+        if(k == 1){
+            return Math.pow(m,n);
+        }
+        else{
+            if(n == 1){
+                return m;
+            }
+            else{
+                double res = m;
+                for(int i = 1; i < n; i++){
+                    res = Math.pow(m,res);
+                }
+                return res;
+            }
+        }
+    }
 }
