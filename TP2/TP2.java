@@ -13,6 +13,9 @@ public class TP2 {
 
         fizzbuzz(20);
         System.out.println(fizzbuzzString(20));
+
+        //tables();
+        tablesTableau();
     }
 
     public static String toBinaryString(int n){
@@ -42,7 +45,6 @@ public class TP2 {
         }
         return res;
     }
-
 
     public static String toHexString(int n){
         String res = "";
@@ -145,6 +147,62 @@ public class TP2 {
         return res;
     }
 
-    
+    public static void tables(){
+        for(int i = 1; i <= 10; i++){
+            System.out.println("Table de multiplication de "+i+" :");
+            for(int j = 1; j <= 10; j++){
+                System.out.println(i+" x "+j+" = "+i*j);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void tablesTableau(){
+        int[][] tab = new int[10][10];
+        for(int i = 0; i < 10; i++){
+           tab[i][0] = i;
+           tab[0][i] = i;
+        }
+        for(int i = 1; i < 10; i++){
+            for(int j = 1; j < 10; j++){
+                tab[i][j] = tab[i][0] * tab[0][j];
+            }
+        }
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j < 10; j++){
+                System.out.format("%2d ",tab[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void tables(int min, int max){
+        for(int i = min; i <= max; i++){
+            System.out.println("Table de multiplication de "+i+" :");
+            for(int j = 1; j <= 10; j++){
+                System.out.println(i+" x "+j+" = "+i*j);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void tablesTableau(int min, int max){
+        int[][] tab = new int[max-min+1][10];
+        for(int i = 0; i < max-min+1; i++){
+           tab[i][0] = i+min;
+           tab[0][i] = i+min;
+        }
+        for(int i = 1; i < max-min+1; i++){
+            for(int j = 1; j < 10; j++){
+                tab[i][j] = tab[i][0] * tab[0][j];
+            }
+        }
+        for(int i = 0; i < max-min+1; i++){
+            for(int j = 0; j < 10; j++){
+                System.out.format("%2d ",tab[i][j]);
+            }
+            System.out.println();
+        }
+    }
 
 }
