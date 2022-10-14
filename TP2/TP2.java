@@ -34,10 +34,6 @@ public class TP2 {
         return res;
     }
 
-    public static Long doubleToRawLongBits(double n){
-        return Double.doubleToRawLongBits(n);
-    }
-
     public static void fizzbuzz(int n){
         for(int i = 1; i <= n; i++){
             if(i%3 == 0 && i%7 == 0){
