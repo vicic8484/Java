@@ -14,6 +14,7 @@ public class TP3 {
     public static void main(String[] args){
         String filename = "TP3/ActualiteMinesDouaiCesar";
         double res = 0;
+        String solVigenere = "";
         double[] frequenceAlphabetFrance = {0.0797, 0.0107, 0.0347, 0.04, 0.179, 0.0101,0.0104,0.0135,0.0734,0.003,0.00069,0.0548,0.0317, 0.0702,0.0527,0.028,0.0113,0.0664,0.0772,0.0728,0.0574,0.0117,0.00059,0.00449,0.003309,0.0004};
 
 
@@ -22,16 +23,17 @@ public class TP3 {
         //writeFile(filename+"-e.txt", Vigenere(readFile(filename+".txt"), "TPFI"));
 
         String text = readFile(filename+".txt");
+        String text2 = readFile("TP3/ActualiteMinesDOuaiVigenere.txt");
         //System.out.println(text);
 
 
         res = cesarFrequence(text);
         
         System.out.println(res);
-        System.out.println(Cesar(text, (int)res)); 
+        //System.out.println(Cesar(text, (int)res)); 
         
-        /* res = solveVigenere(text);
-        System.out.println(res); */
+        solVigenere = solveVigenere(text2);
+        System.out.println(solVigenere); 
     }
 
     public static char CesarChar(char c, int n){
@@ -55,13 +57,18 @@ public class TP3 {
 
     public static String Vigenere(String s, String k){
         String res = "";
+        int j =0;
         for(int i = 0; i < s.length(); i++){
             //System.out.println(i + " - " + s.charAt(i));
-            if(k.charAt(i%k.length()) >= 'a' && k.charAt(i%k.length()) <= 'z'){
-                res += CesarChar(s.charAt(i), k.charAt(i%k.length()) - 'a');
+            if(k.charAt(i)==' '){
+                j++;
+                res += ' ';
             }
-            else if(k.charAt(i%k.length()) >= 'A' && k.charAt(i%k.length()) <= 'Z'){
-                res += CesarChar(s.charAt(i), k.charAt(i%k.length()) - 'A');
+            else if(k.charAt(i%k.length()) >= 'a' && k.charAt((i-j)%k.length()) <= 'z'){
+                res += CesarChar(s.charAt(i), k.charAt((i-j)%k.length()) - 'a');
+            }
+            else if(k.charAt(i%k.length()) >= 'A' && k.charAt((i-j)%k.length()) <= 'Z'){
+                res += CesarChar(s.charAt(i), k.charAt((i-j)%k.length()) - 'A');
             }
         }
         return res;
@@ -138,7 +145,7 @@ public class TP3 {
             if (min> sumFreq){
                 min = sumFreq;
                 res = i;
-                System.out.println(i+" - "+sumFreq);
+                //System.out.println(i+" - "+sumFreq);
             }
         }
         return res;
@@ -149,10 +156,15 @@ public class TP3 {
         String text = "";
         double res = 0;
         double temp = 0;
+        int n =0;
         for(int q = 0; q<p; q++){
+            n=0;
             for(int j=0; j<s.length(); j++){
-                if(j%p == q){
+                if((j-n)%p == q){
                     text += s.charAt(j);
+                }
+                if(s.charAt(j) == ' '){
+                    n++;
                 }
             }
 
@@ -179,7 +191,7 @@ public class TP3 {
 
     public static int indexVigenere(String s){
         double goal = 0.0745;
-        double indice = 0;
+        double indice = indiceCoincidence(s, 1);
         double indicePre = indiceCoincidence(s,1);
         if(indiceCoincidence(s,1)>=0.8*goal){
             return 1;
@@ -187,6 +199,7 @@ public class TP3 {
         for(int i = 2; i < 32; i++){
             indicePre = indice;
             indice = indiceCoincidence(s,i);
+            //System.out.println(indice+" - "+indicePre);
             if(indice>=goal){
                 return i;
             }
@@ -199,6 +212,7 @@ public class TP3 {
 
     public static String solveVigenere(String s){
         int nb = indexVigenere(s);
+        System.out.println(nb);
         String res = "";
         String ss = "";
         for(int i = 0; i < nb; i++){
