@@ -14,15 +14,16 @@ public class TP3 {
         String filename = "TP3/ActualiteMinesDouaiCesar";
         double res = 0;
         String solVigenere = "";
-        double[] frequenceAlphabetFrance = {0.0797, 0.0107, 0.0347, 0.04, 0.179, 0.0101,0.0104,0.0135,0.0734,0.003,0.00069,0.0548,0.0317, 0.0702,0.0527,0.028,0.0113,0.0664,0.0772,0.0728,0.0574,0.0117,0.00059,0.00449,0.003309,0.0004};
+        //double[] frequenceAlphabetFrance = {0.0797, 0.0107, 0.0347, 0.04, 0.179, 0.0101,0.0104,0.0135,0.0734,0.003,0.00069,0.0548,0.0317, 0.0702,0.0527,0.028,0.0113,0.0664,0.0772,0.0728,0.0574,0.0117,0.00059,0.00449,0.003309,0.0004};
 
 
         //System.out.println(Cesar("Vous faites un TP d'informatique en ce moment", 5));
         //System.out.println(Vigenere("Vous faites un TP d'informatique en ce moment", "TPFI"));
         //writeFile(filename+"-e.txt", Vigenere(readFile(filename+".txt"), "TPFI"));
 
+        String orginie = readFile("TP3/ActuDouai.txt");
         String text = readFile(filename+".txt");
-        String text2 = readFile("TP3/ActualiteMinesDOuaiVigenere.txt");
+        String text2 = readFile("TP3/ActualiteMinesDouaiVigenere.txt");
         //System.out.println(text);
 
 
@@ -31,8 +32,11 @@ public class TP3 {
         System.out.println(res);
         //System.out.println(Cesar(text, (int)res)); 
         
+        //CLE : IMTNORDEUROPECESTLAVENIR
         solVigenere = solveVigenere(text2);
         System.out.println(solVigenere); 
+        System.out.println(Vigenere(text2, solVigenere));
+
     }
 
     public static char CesarChar(char c, int n){
@@ -59,9 +63,9 @@ public class TP3 {
         int j =0;
         for(int i = 0; i < s.length(); i++){
             //System.out.println(i + " - " + s.charAt(i));
-            if(k.charAt(i)==' '){
+            if(isSpecial(s.charAt(i))){
                 j++;
-                res += ' ';
+                res += s.charAt(i);
             }
             else if(k.charAt(i%k.length()) >= 'a' && k.charAt((i-j)%k.length()) <= 'z'){
                 res += CesarChar(s.charAt(i), k.charAt((i-j)%k.length()) - 'a');
@@ -158,12 +162,13 @@ public class TP3 {
         int n =0;
         for(int q = 0; q<p; q++){
             n=0;
+            text = "";
             for(int j=0; j<s.length(); j++){
-                if((j-n)%p == q){
-                    text += s.charAt(j);
-                }
-                if(s.charAt(j) == ' '){
+                if(isSpecial(s.charAt(j))){
                     n++;
+                }
+                else if((j-n)%p == q){
+                    text += s.charAt(j);
                 }
             }
 
@@ -183,7 +188,7 @@ public class TP3 {
             for (int i = 0; i < count.length; i++){
                 temp += count[i] * (count[i] - 1);
             }
-            res = temp/(text.length()*(text.length()-1));
+            res += temp/((text.length())*(text.length()-1));
         }
         return res/p;
     }        
@@ -198,31 +203,74 @@ public class TP3 {
         for(int i = 2; i < 32; i++){
             indicePre = indice;
             indice = indiceCoincidence(s,i);
-            //System.out.println(indice+" - "+indicePre);
+            System.out.println(i+" - "+indice+" - "+indicePre);
             if(indice>=goal){
                 return i;
             }
             if(indice >= 1.5*indicePre){
                 return i;
-            }
+            } 
         }
         return 0;
     }
 
     public static String solveVigenere(String s){
         int nb = indexVigenere(s);
+        if(nb == 0){
+            return "No key found";
+        }
         System.out.println(nb);
         String res = "";
         String ss = "";
+        int n=0;
         for(int i = 0; i < nb; i++){
             ss= "";
             for(int j=0; j<s.length(); j++){
-                if(j%nb == i){
+                n=0;
+                if((j-n)%nb == i){
                     ss += s.charAt(j);
                 }
+                if(isSpecial(s.charAt(j))){
+                    n++;
+                }
             }
-            res += (char)(cesarFrequence(ss)+'a');
+            res += (char)(cesarFrequence(ss)+'A');
         }
         return res;
+    }
+
+    public static boolean isSpecial(char a){
+        switch (a) {
+            case ' ':
+            case '.':
+            case ',':
+            case ';':
+            case ':':
+            case '!':
+            case '?':
+            case '(':
+            case ')':
+            case 'é':
+            case 'è':
+            case 'à':
+            case 'ç':
+            case 'ù':
+            case 'ê':
+            case 'ô':
+            case 'î':
+            case 'â':
+            case 'û':
+            case 'ë':
+            case 'ï':
+            case 'ü':
+            case 'ÿ':
+            return true;
+    }
+    if(a >= '0' && a <= '9'){
+        return true;
+    }
+    else{
+        return false;
+    }
     }
 }

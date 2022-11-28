@@ -13,12 +13,13 @@ public class poly {
 
     public poly(){
         System.out.println("Veuillez entrer le degré du polynome");
-        Scanner sc = new Scanner(System.in);
-        this.degre = sc.nextInt();
-        this.coefs = new double[this.degre+1];
-        for(int i = 0; i < this.degre+1; i++){
-            System.out.println("Veuillez entrer le coefficient de degré " + i);
-            this.coefs[i] = sc.nextLong();
+        try (Scanner sc = new Scanner(System.in)) {
+            this.degre = sc.nextInt();
+            this.coefs = new double[this.degre+1];
+            for(int i = 0; i < this.degre+1; i++){
+                System.out.println("Veuillez entrer le coefficient de degré " + i);
+                this.coefs[i] = sc.nextLong();
+            }
         }
     }
 
